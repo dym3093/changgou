@@ -3,18 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-		<artifactId>changgou-parent</artifactId>
+		<artifactId>changgou-service</artifactId>
 		<groupId>com.dayton.changgou</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>changgou-service-api</artifactId>
-	<packaging>pom</packaging>
-	<description>所有微服务工程的API抽取(JavaBean|Feign)</description>
-	<modules>
-		<module>changgou-service-goods-api</module>
-	</modules>
+	<artifactId>changgou-service-goods</artifactId>
 
+	<!--依赖-->
+	<dependencies>
+		<dependency>
+			<groupId>com.dayton.changgou</groupId>
+			<artifactId>changgou-service-goods-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 
 </project>
