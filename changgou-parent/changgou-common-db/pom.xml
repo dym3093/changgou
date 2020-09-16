@@ -24,7 +24,7 @@
 			<artifactId>changgou-common</artifactId>
 			<version>${changgou-common.version}</version>
 		</dependency>
-		<!--通用mapper起步依赖-->
+		<!--通用mapper起步依赖， 0 SQL语句-->
 		<dependency>
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper-spring-boot-starter</artifactId>

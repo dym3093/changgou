@@ -16,5 +16,23 @@
 		<module>changgou-service-goods-api</module>
 	</modules>
 
+	<properties>
+		<persistence-api.version>1.0.2</persistence-api.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.dayton.changgou</groupId>
+			<artifactId>changgou-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>${persistence-api.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 </project>

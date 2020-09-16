@@ -10,6 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>changgou-service-goods</artifactId>
+	<description>商品微服务工程，changgou-goods数据库的管理</description>
 
 	<!--依赖-->
 	<dependencies>
