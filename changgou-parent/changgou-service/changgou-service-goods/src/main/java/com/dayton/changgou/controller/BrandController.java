@@ -4,7 +4,6 @@ import com.dayton.changgou.service.BrandService;
 import com.github.pagehelper.PageInfo;
 import entity.Result;
 import entity.StatusCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pojo.Brand;
 
@@ -12,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- *
+ * 品牌 controller <br/>
  * @author Martin Deng
  * @since 2020-09-16 21:48
  */
@@ -135,7 +134,7 @@ public class BrandController {
 	 * @author Martin Deng
 	 * @since 2020/9/18 22:10
 	 */
-	@PostMapping("/search/")
+	@PostMapping("/search/{page}/{size}")
 	public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,
 											@PathVariable(value = "page") Integer page,
 	                                        @PathVariable(value = "size") Integer size){
