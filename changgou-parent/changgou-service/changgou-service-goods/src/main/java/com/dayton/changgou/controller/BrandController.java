@@ -1,6 +1,7 @@
 package com.dayton.changgou.controller;
 
 import com.dayton.changgou.service.BrandService;
+import com.github.pagehelper.PageInfo;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,38 @@ public class BrandController {
 		List<Brand> brands = brandService.findList(brand);
 		return new Result<>(true, StatusCode.OK, "品牌查询成功!",
 				brands);
+	}
+
+	/**
+	 * 分页查询
+	 * @param page	页码
+	 * @param size  页数
+	 * @return entity.Result<com.github.pagehelper.PageInfo<pojo.Brand>>
+	 * @author Martin Deng
+	 * @since 2020/9/18 22:08
+	 */
+	@GetMapping("/search/{page}/{size}")
+	public Result<PageInfo<Brand>> findPage(@PathVariable(value = "page") Integer page,
+	                                        @PathVariable(value = "size") Integer size){
+		PageInfo<Brand> pageInfo = brandService.findPage(page, size);
+		return new Result<>(true, StatusCode.OK, "分页查询成功!", pageInfo);
+	}
+
+	/**
+	 * 条件分页查询实现
+	 * @param brand	    前端查询的对象
+	 * @param page	    页码
+	 * @param size      页数
+	 * @return entity.Result<com.github.pagehelper.PageInfo<pojo.Brand>>
+	 * @author Martin Deng
+	 * @since 2020/9/18 22:10
+	 */
+	@PostMapping("/search/")
+	public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,
+											@PathVariable(value = "page") Integer page,
+	                                        @PathVariable(value = "size") Integer size){
+		PageInfo<Brand> pageInfo = brandService.findPage(brand, page, size);
+		return new Result<>(true, StatusCode.OK, "条件分页查询成功!", pageInfo);
 	}
 
 }

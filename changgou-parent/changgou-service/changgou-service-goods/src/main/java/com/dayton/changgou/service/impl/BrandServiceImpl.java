@@ -2,6 +2,8 @@ package com.dayton.changgou.service.impl;
 
 import com.dayton.changgou.dao.BrandMapper;
 import com.dayton.changgou.service.BrandService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import pojo.Brand;
@@ -88,19 +90,73 @@ public class BrandServiceImpl implements BrandService{
 	 */
 	@Override
 	public List<Brand> findList(Brand brand) {
+		Example example = createExample(brand);
+		return brandMapper.selectByExample(example);
+	}
+
+	/**
+	 * 生成查询条件
+	 * @param brand	    品牌对象
+	 * @return tk.mybatis.mapper.entity.Example
+	 * @author Martin Deng
+	 * @since 2020/9/18 22:03
+	 */
+	public Example createExample(Brand brand){
 		// 自定义条件搜索对象 Example
 		Example example = new Example(Brand.class);
+		// 条件构造器
 		Example.Criteria criteria = example.createCriteria();
 		if (null != brand){
+			// id 精确搜索
+			if (StringUtils.isNotBlank(brand.getImage())){
+				criteria.andEqualTo(Brand.Fields.id, brand.getId());
+			}
+			// 名字模糊搜索
 			if (StringUtils.isNotBlank(brand.getName())){
-				criteria.andLike("name", "%" + brand.getName() + "%");
+				criteria.andLike(Brand.Fields.name, "%" + brand.getName() + "%");
 			}
 			// 首字母搜索
 			if (StringUtils.isNotBlank(brand.getLetter())){
-				criteria.andEqualTo("letter", brand.getLetter());
+				criteria.andEqualTo(Brand.Fields.letter, brand.getLetter());
 			}
 		}
-		return brandMapper.selectByExample(example);
+		return example;
+	}
+
+	/**
+	 * 分页搜索
+	 * @param page  页码
+	 * @param size  页数
+	 * @return com.github.pagehelper.PageInfo<pojo.Brand>
+	 * @author Martin Deng
+	 * @since 2020/9/18 21:59
+	 */
+	@Override
+	public PageInfo<Brand> findPage(Integer page, Integer size) {
+		// 分页
+		PageHelper.startPage(page, size);
+		List<Brand> list = brandMapper.selectAll();
+		return new PageInfo<>(list);
+	}
+
+	/**
+	 * 条件分页搜索
+	 * @param brand	    条件对象
+	 * @param page	    页码
+	 * @param size	    页数
+	 * @return java.util.List<pojo.Brand>
+	 * @author Martin Deng
+	 * @since 2020/9/18 21:46
+	 */
+	@Override
+	public PageInfo<Brand> findPage(Brand brand, Integer page, Integer size) {
+		// 分页
+		PageHelper.startPage(page, size);
+		// 搜索数据 name不为空，则根据名字模糊搜索，letter不为空，则根据letter搜索
+		Example example = createExample(brand);
+		List<Brand> list = brandMapper.selectByExample(example);
+		// 封装
+		return new PageInfo<>(list);
 	}
 
 }

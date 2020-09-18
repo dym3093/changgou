@@ -1,5 +1,6 @@
 package com.dayton.changgou.service;
 
+import com.github.pagehelper.PageInfo;
 import pojo.Brand;
 
 import java.util.List;
@@ -62,5 +63,26 @@ public interface BrandService {
 	 * @since 2020/9/16 22:58
 	 */
 	List<Brand> findList(Brand brand);
+
+	/**
+	 * 分页搜索
+	 * @param page	    页码
+	 * @param size	    页数
+	 * @return java.util.List<pojo.Brand>
+	 * @author Martin Deng
+	 * @since 2020/9/18 21:45
+	 */
+	PageInfo<Brand> findPage(Integer page, Integer size);
+
+	/**
+	 * 条件分页搜索
+	 * @param brand	    条件对象
+	 * @param page	    页码
+	 * @param size	    页数
+	 * @return java.util.List<pojo.Brand>
+	 * @author Martin Deng
+	 * @since 2020/9/18 21:45
+	 */
+	PageInfo<Brand> findPage(Brand brand, Integer page, Integer size);
 
 }
